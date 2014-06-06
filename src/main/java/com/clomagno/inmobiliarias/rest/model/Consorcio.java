@@ -6,7 +6,9 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
 import com.clomagno.inmobiliarias.rest.model.Gasto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Consorcio implements Serializable {
@@ -23,6 +25,7 @@ public class Consorcio implements Serializable {
 	private String nombre;
 	@OneToMany(mappedBy = "consorcio")
 	private Collection<Gasto> gasto;
+	
 	public long getIdConsorcio() {
 		return idConsorcio;
 	}

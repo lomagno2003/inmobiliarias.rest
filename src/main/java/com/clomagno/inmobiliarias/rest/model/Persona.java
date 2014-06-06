@@ -1,7 +1,12 @@
 package com.clomagno.inmobiliarias.rest.model;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Persona implements Serializable {
@@ -19,11 +24,13 @@ public class Persona implements Serializable {
 	private String telefonoFijo;
 	private String telefonoMovil;
 	private String email;
-
+	
+	@JsonIgnore(value=false)
 	public long getIdPersona() {
 		return idPersona;
 	}
-
+	
+	@JsonIgnore(value=false)
 	public void setIdPersona(long id) {
 		this.idPersona = id;
 	}
