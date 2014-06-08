@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.clomagno.inmobiliarias.rest.model.Propietario;
 
-@RepositoryRestResource(collectionResourceRel = "propietarios", path = "propietarios")
+@RepositoryRestResource(collectionResourceRel = "propietario", path = "propietario")
 public interface PropietariosRepository extends CrudRepository<Propietario, Long>
 {
 	

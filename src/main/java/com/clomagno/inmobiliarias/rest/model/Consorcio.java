@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.clomagno.inmobiliarias.rest.model.Gasto;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Consorcio implements Serializable {

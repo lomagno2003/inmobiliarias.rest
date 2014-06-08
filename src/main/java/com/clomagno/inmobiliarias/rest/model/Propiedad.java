@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.clomagno.inmobiliarias.rest.model.Gasto;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Propiedad implements Serializable {

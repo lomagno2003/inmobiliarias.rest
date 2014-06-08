@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.clomagno.inmobiliarias.rest.model.Propiedad;
 
-@RepositoryRestResource(collectionResourceRel = "propiedades", path = "propiedades")
+@RepositoryRestResource(collectionResourceRel = "propiedad", path = "propiedad")
 public interface PropiedadesRepository extends CrudRepository<Propiedad, Long>
 {
 	
