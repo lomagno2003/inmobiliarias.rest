@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.clomagno.inmobiliarias.rest.model.Gasto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Propiedad implements Serializable {
@@ -83,5 +84,9 @@ public class Propiedad implements Serializable {
 	public void setGasto(Gasto param) {
 	    this.gasto = param;
 	}
-
+	
+	@JsonProperty("id")
+	public Long getId(){
+		return getIdPropiedad();
+	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.clomagno.inmobiliarias.rest.model.Gasto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Consorcio implements Serializable {
@@ -56,5 +57,9 @@ public class Consorcio implements Serializable {
 	public void setGasto(Collection<Gasto> param) {
 	    this.gasto = param;
 	}
-
+	
+	@JsonProperty("id")
+	public Long getId(){
+		return getIdConsorcio();
+	}
 }

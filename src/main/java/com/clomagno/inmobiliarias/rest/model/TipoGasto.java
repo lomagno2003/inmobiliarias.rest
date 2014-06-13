@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 public class TipoGasto implements Serializable {
 
@@ -41,4 +43,8 @@ public class TipoGasto implements Serializable {
 		this.descripcion = param;
 	}
 
+	@JsonProperty("id")
+	public Long getId2(){
+		return getId();
+	}
 }

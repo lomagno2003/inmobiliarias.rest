@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Persona implements Serializable {
@@ -80,5 +81,9 @@ public class Persona implements Serializable {
 	public void setEmail(String param) {
 		this.email = param;
 	}
-
+	
+	@JsonProperty("id")
+	public Long getId(){
+		return getIdPersona();
+	}
 }

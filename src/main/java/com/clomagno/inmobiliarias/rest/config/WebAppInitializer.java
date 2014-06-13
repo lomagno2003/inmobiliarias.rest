@@ -12,6 +12,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 
 public class WebAppInitializer implements WebApplicationInitializer {
 	private WebApplicationContext createRootContext(
@@ -34,7 +35,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 			WebApplicationContext rootContext) {
 		FilterRegistration.Dynamic corsFilter = servletContext.addFilter(
 				"corsFilterChain", SimpleCORSFilter.class);
-		corsFilter.addMappingForUrlPatterns(null, true, "/*");
+		corsFilter.addMappingForUrlPatterns(null, false, "/*");
 	}
 
 	private void configureSpringSecurity(ServletContext servletContext,

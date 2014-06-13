@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 import com.clomagno.inmobiliarias.rest.model.Consorcio;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Gasto implements Serializable {
@@ -70,6 +72,11 @@ public class Gasto implements Serializable {
 
 	public void setConsorcio(Consorcio param) {
 	    this.consorcio = param;
+	}
+	
+	@JsonProperty("id")
+	public Long getId(){
+		return getIdGasto();
 	}
 
 }
