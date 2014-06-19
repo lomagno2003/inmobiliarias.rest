@@ -27,7 +27,7 @@ public class Propiedad implements Serializable {
 	private String direccion;
 	@ManyToOne
 	private Propietario propietario;
-	private String porcentajeGastosComunes;
+	private Long porcentajeGastosComunes;
 	@OneToMany
 	private Collection<Gasto> gasto;
 	public long getIdPropiedad() {
@@ -70,11 +70,11 @@ public class Propiedad implements Serializable {
 		this.propietario = param;
 	}
 
-	public String getPorcentajeGastosComunes() {
+	public Long getPorcentajeGastosComunes() {
 		return porcentajeGastosComunes;
 	}
 
-	public void setPorcentajeGastosComunes(String param) {
+	public void setPorcentajeGastosComunes(Long param) {
 		this.porcentajeGastosComunes = param;
 	}
 
