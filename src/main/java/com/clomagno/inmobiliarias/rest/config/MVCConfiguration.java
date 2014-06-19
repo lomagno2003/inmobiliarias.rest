@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-@ComponentScan(basePackages = "com.clomagno.loquebusques.rest")
+@ComponentScan(basePackages = "com.clomagno.inmobiliarias.rest.resources")
 @Configuration
 public class MVCConfiguration extends WebMvcConfigurerAdapter {
 	@Bean

@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.clomagno.inmobiliarias.rest.model.Consorcio;
+import com.clomagno.inmobiliarias.rest.model.Propiedad;
 
 @Entity
 public class Gasto implements Serializable {
@@ -23,6 +25,10 @@ public class Gasto implements Serializable {
 	private String comentarios;
 	@ManyToOne
 	private TipoGasto tipoGasto;
+	@ManyToOne
+	private Consorcio consorcio;
+	@ManyToOne
+	private Propiedad propiedad;
 	public long getIdGasto() {
 		return idGasto;
 	}
@@ -66,6 +72,22 @@ public class Gasto implements Serializable {
 	@JsonProperty("id")
 	public Long getId(){
 		return getIdGasto();
+	}
+
+	public Consorcio getConsorcio() {
+	    return consorcio;
+	}
+
+	public void setConsorcio(Consorcio param) {
+	    this.consorcio = param;
+	}
+
+	public Propiedad getPropiedad() {
+	    return propiedad;
+	}
+
+	public void setPropiedad(Propiedad param) {
+	    this.propiedad = param;
 	}
 
 }

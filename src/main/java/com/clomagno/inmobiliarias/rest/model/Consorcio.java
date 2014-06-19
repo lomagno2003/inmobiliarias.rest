@@ -23,7 +23,7 @@ public class Consorcio implements Serializable {
 	@OneToMany(mappedBy = "consorcio")
 	private Collection<Propiedad> propiedad;
 	private String nombre;
-	@OneToMany
+	@OneToMany(mappedBy = "consorcio")
 	private Collection<Gasto> gasto;
 	public long getIdConsorcio() {
 		return idConsorcio;

@@ -28,7 +28,7 @@ public class Propiedad implements Serializable {
 	@ManyToOne
 	private Propietario propietario;
 	private Long porcentajeGastosComunes;
-	@OneToMany
+	@OneToMany(mappedBy = "propiedad")
 	private Collection<Gasto> gasto;
 	public long getIdPropiedad() {
 		return idPropiedad;
