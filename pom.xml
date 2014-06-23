@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.clomagno.inmobiliarias</groupId>
@@ -15,7 +16,7 @@
 		<jdk.version>1.7</jdk.version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
 		
-		<tomcat.path>/</tomcat.path>
+		<tomcat.path>/rest</tomcat.path>
 		<tomcat.port>8082</tomcat.port>
 
 		<!-- use UTF-8 for everything -->
