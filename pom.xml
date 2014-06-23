@@ -2,15 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.springframework.samples.spring</groupId>
-	<artifactId>spring-jpa-utility</artifactId>
+	<groupId>com.clomagno.inmobiliarias</groupId>
+	<artifactId>restserver</artifactId>
 	<version>1.0.0.CI-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Spring JPA Utility</name>
-	<url>http://www.springframework.org</url>
-	<description>
-		<![CDATA[This project is a minimal jar utility with Spring configuration for JPA usage.]]>
-	</description>
+	<name>Rest Server of Inmobiliarias</name>
 	<properties>
 		<spring.version>4.0.3.RELEASE</spring.version>
 		<spring-security.version>3.2.3.RELEASE</spring-security.version>
@@ -18,6 +14,9 @@
 		<junit.version>4.11</junit.version>
 		<jdk.version>1.7</jdk.version>
 		<hibernate.version>4.3.5.Final</hibernate.version>
+		
+		<tomcat.path>/</tomcat.path>
+		<tomcat.port>8082</tomcat.port>
 
 		<!-- use UTF-8 for everything -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -199,8 +198,8 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.1</version>
 				<configuration>
-					<path>/</path>
-					<port>8082</port>
+					<path>${tomcat.path}</path>
+					<port>${tomcat.port}</port>
 				</configuration>
 			</plugin>
 		</plugins>

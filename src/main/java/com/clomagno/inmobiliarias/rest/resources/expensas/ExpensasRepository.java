@@ -13,5 +13,4 @@ public class ExpensasRepository {
 	public @ResponseBody Expensa findPet(@PathVariable String idExpensa, Model model) {
 		return new Expensa(50l);
 	}
-
 }
