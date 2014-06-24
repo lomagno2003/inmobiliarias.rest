@@ -16,15 +16,15 @@ public class TipoGasto implements Serializable {
 	}
 
 	@Id
-	private long id;
+	private long idTipoGasto;
 	private String valorDefecto;
 	private String descripcion;
-	public long getId() {
-		return id;
+	public long getIdTipoGasto() {
+		return idTipoGasto;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setIdTipoGasto(long id) {
+		this.idTipoGasto = id;
 	}
 
 	public String getValorDefecto() {
@@ -42,9 +42,9 @@ public class TipoGasto implements Serializable {
 	public void setDescripcion(String param) {
 		this.descripcion = param;
 	}
-
+	
 	@JsonProperty("id")
-	public Long getId2(){
-		return getId();
+	public Long getId(){
+		return getIdTipoGasto();
 	}
 }
