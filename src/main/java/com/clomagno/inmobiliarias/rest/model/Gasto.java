@@ -23,7 +23,7 @@ public class Gasto implements Serializable {
 
 	@Id
 	@GenericGenerator(name="gen",strategy="increment")
-	@GeneratedValue(generator="gen")s
+	@GeneratedValue(generator="gen")
 	private long idGasto;
 	private String monto;
 	private String comprobante;
