@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -24,7 +23,7 @@ public class Gasto implements Serializable {
 
 	@Id
 	@GenericGenerator(name="gen",strategy="increment")
-	@GeneratedValue(generator="gen")
+	@GeneratedValue(generator="gen")s
 	private long idGasto;
 	private String monto;
 	private String comprobante;
