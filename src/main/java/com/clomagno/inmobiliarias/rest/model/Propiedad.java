@@ -3,13 +3,18 @@ package com.clomagno.inmobiliarias.rest.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.clomagno.inmobiliarias.rest.model.Gasto;
+
 import java.util.Collection;
+
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Propiedad implements Serializable {
@@ -20,6 +25,8 @@ public class Propiedad implements Serializable {
 	}
 
 	@Id
+	@GenericGenerator(name="gen",strategy="increment")
+	@GeneratedValue(generator="gen")
 	private long idPropiedad;
 	@ManyToOne
 	private Consorcio consorcio;

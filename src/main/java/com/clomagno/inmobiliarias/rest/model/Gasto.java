@@ -3,8 +3,12 @@ package com.clomagno.inmobiliarias.rest.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.clomagno.inmobiliarias.rest.model.Consorcio;
@@ -19,6 +23,8 @@ public class Gasto implements Serializable {
 	}
 
 	@Id
+	@GenericGenerator(name="gen",strategy="increment")
+	@GeneratedValue(generator="gen")
 	private long idGasto;
 	private String monto;
 	private String comprobante;

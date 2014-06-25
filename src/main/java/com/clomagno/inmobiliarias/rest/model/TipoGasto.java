@@ -3,7 +3,10 @@ package com.clomagno.inmobiliarias.rest.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -16,6 +19,8 @@ public class TipoGasto implements Serializable {
 	}
 
 	@Id
+	@GenericGenerator(name="gen",strategy="increment")
+	@GeneratedValue(generator="gen")
 	private long idTipoGasto;
 	private String valorDefecto;
 	private String descripcion;

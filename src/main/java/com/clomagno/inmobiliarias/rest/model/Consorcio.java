@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.clomagno.inmobiliarias.rest.model.Gasto;
@@ -19,6 +22,8 @@ public class Consorcio implements Serializable {
 	}
 
 	@Id
+	@GenericGenerator(name="gen",strategy="increment")
+	@GeneratedValue(generator="gen")
 	private long idConsorcio;
 	@OneToMany(mappedBy = "consorcio")
 	private Collection<Propiedad> propiedad;
