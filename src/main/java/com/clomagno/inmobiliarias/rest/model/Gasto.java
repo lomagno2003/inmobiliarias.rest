@@ -1,6 +1,7 @@
 package com.clomagno.inmobiliarias.rest.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-public class Gasto implements Serializable {
+public class Gasto implements Serializable,IContabilizable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,12 +24,12 @@ public class Gasto implements Serializable {
 	@GenericGenerator(name = "gen", strategy = "increment")
 	@GeneratedValue(generator = "gen")
 	private long idGasto;
-	private String monto;
+	private Double monto;
 	private String comprobante;
 	private String comentarios;
 	@ManyToOne
 	private Concepto concepto;
-	private String fecha;
+	private Date fecha;
 
 	public long getIdGasto() {
 		return idGasto;
@@ -38,11 +39,11 @@ public class Gasto implements Serializable {
 		this.idGasto = id;
 	}
 
-	public String getMonto() {
+	public Double getMonto() {
 		return monto;
 	}
 
-	public void setMonto(String param) {
+	public void setMonto(Double param) {
 		this.monto = param;
 	}
 
@@ -75,11 +76,11 @@ public class Gasto implements Serializable {
 		return getIdGasto();
 	}
 
-	public String getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(String param) {
+	public void setFecha(Date param) {
 		this.fecha = param;
 	}
 

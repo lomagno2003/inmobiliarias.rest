@@ -1,6 +1,7 @@
 package com.clomagno.inmobiliarias.rest.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-public class Pago implements Serializable {
+public class Pago implements Serializable, IContabilizable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,11 +24,12 @@ public class Pago implements Serializable {
 	@GenericGenerator(name = "gen", strategy = "increment")
 	@GeneratedValue(generator = "gen")
 	private long idPago;
-	private String monto;
+	private Double monto;
 	private String comentario;
 	@ManyToOne
 	private UnidadFuncional unidadFuncional;
-	private String depositoBancario;
+	private Boolean depositoBancario;
+	private Date fecha;
 
 	public long getIdPago() {
 		return idPago;
@@ -37,11 +39,11 @@ public class Pago implements Serializable {
 		this.idPago = id;
 	}
 
-	public String getMonto() {
+	public Double getMonto() {
 		return monto;
 	}
 
-	public void setMonto(String param) {
+	public void setMonto(Double param) {
 		this.monto = param;
 	}
 
@@ -66,11 +68,19 @@ public class Pago implements Serializable {
 		this.unidadFuncional = param;
 	}
 
-	public String getDepositoBancario() {
+	public Boolean getDepositoBancario() {
 		return depositoBancario;
 	}
 
-	public void setDepositoBancario(String param) {
+	public void setDepositoBancario(Boolean param) {
 		this.depositoBancario = param;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date param) {
+		this.fecha = param;
 	}
 }
