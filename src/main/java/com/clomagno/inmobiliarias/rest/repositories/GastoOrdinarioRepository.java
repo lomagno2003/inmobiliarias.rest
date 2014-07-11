@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import com.clomagno.inmobiliarias.rest.model.Consorcio;
 import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
 
-@RepositoryRestResource(collectionResourceRel = "gastoordinario", path = "gastoordinario")
+@RepositoryRestResource(collectionResourceRel = "gastoOrdinario", path = "gastoOrdinario")
 public interface GastoOrdinarioRepository extends CrudRepository<GastoOrdinario, Long>
 {
 	public List<GastoOrdinario> findByConsorcioAndFechaBetween(Consorcio consorcio, Date fechaBegin, Date fechaEnd);

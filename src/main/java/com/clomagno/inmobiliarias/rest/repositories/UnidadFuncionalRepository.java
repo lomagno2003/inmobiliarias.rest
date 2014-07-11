@@ -5,7 +5,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.clomagno.inmobiliarias.rest.model.UnidadFuncional;
 
-@RepositoryRestResource(collectionResourceRel = "unidadfuncional", path = "unidadfuncional")
+@RepositoryRestResource(collectionResourceRel = "unidadFuncional", path = "unidadFuncional")
 public interface UnidadFuncionalRepository extends CrudRepository<UnidadFuncional, Long>
 {
 	
