@@ -6,28 +6,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.clomagno.inmobiliarias.rest.model.Gasto;
-
-import java.util.Collection;
-
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.clomagno.inmobiliarias.rest.model.GastoExtraordinario;
+import java.util.Collection;
+import javax.persistence.OneToMany;
+import com.clomagno.inmobiliarias.rest.model.Pago;
+
 @Entity
-public class Propiedad implements Serializable {
+@Table(name = "UnidadFuncional")
+public class UnidadFuncional implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public Propiedad() {
+	public UnidadFuncional() {
 	}
 
 	@Id
-	@GenericGenerator(name="gen",strategy="increment")
-	@GeneratedValue(generator="gen")
-	private long idPropiedad;
+	@GenericGenerator(name = "gen", strategy = "increment")
+	@GeneratedValue(generator = "gen")
+	private long idUnidadFuncional;
 	@ManyToOne
 	private Consorcio consorcio;
 	private String nombre;
@@ -35,14 +36,16 @@ public class Propiedad implements Serializable {
 	@ManyToOne
 	private Propietario propietario;
 	private Long porcentajeGastosComunes;
-	@OneToMany(mappedBy = "propiedad")
-	private Collection<Gasto> gasto;
-	public long getIdPropiedad() {
-		return idPropiedad;
+	@OneToMany(mappedBy = "unidadFuncional")
+	private Collection<GastoExtraordinario> gastoExtraordinario;
+	@OneToMany(mappedBy = "unidadFuncional")
+	private Collection<Pago> pago;
+	public long getIdUnidadFuncional() {
+		return idUnidadFuncional;
 	}
 
-	public void setIdPropiedad(long id) {
-		this.idPropiedad = id;
+	public void setIdUnidadFuncional(long id) {
+		this.idUnidadFuncional = id;
 	}
 
 	public Consorcio getConsorcio() {
@@ -86,15 +89,23 @@ public class Propiedad implements Serializable {
 	}
 
 	@JsonProperty("id")
-	public Long getId(){
-		return getIdPropiedad();
+	public Long getId() {
+		return getIdUnidadFuncional();
 	}
 
-	public Collection<Gasto> getGasto() {
-	    return gasto;
+	public Collection<GastoExtraordinario> getGastoExtraordinario() {
+	    return gastoExtraordinario;
 	}
 
-	public void setGasto(Collection<Gasto> param) {
-	    this.gasto = param;
+	public void setGastoExtraordinario(Collection<GastoExtraordinario> param) {
+	    this.gastoExtraordinario = param;
+	}
+
+	public Collection<Pago> getPago() {
+	    return pago;
+	}
+
+	public void setPago(Collection<Pago> param) {
+	    this.pago = param;
 	}
 }

@@ -3,7 +3,7 @@ package com.clomagno.inmobiliarias.rest.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import com.clomagno.inmobiliarias.rest.model.Propiedad;
+import com.clomagno.inmobiliarias.rest.model.UnidadFuncional;
 import java.util.Collection;
 import javax.persistence.OneToMany;
 
@@ -12,17 +12,17 @@ public class Propietario extends Persona implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@OneToMany(mappedBy = "propietario")
-	private Collection<Propiedad> propiedad;
+	private Collection<UnidadFuncional> unidadFuncional;
 
 	public Propietario() {
 	}
 
-	public Collection<Propiedad> getPropiedad() {
-		return propiedad;
+	public Collection<UnidadFuncional> getUnidadFuncional() {
+		return unidadFuncional;
 	}
 
-	public void setPropiedad(Collection<Propiedad> param) {
-		this.propiedad = param;
+	public void setUnidadFuncional(Collection<UnidadFuncional> param) {
+		this.unidadFuncional = param;
 	}
 
 }

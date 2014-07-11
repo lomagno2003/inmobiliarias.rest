@@ -10,8 +10,6 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.clomagno.inmobiliarias.rest.model.Consorcio;
-import com.clomagno.inmobiliarias.rest.model.Propiedad;
 
 @Entity
 public class Gasto implements Serializable {
@@ -22,18 +20,16 @@ public class Gasto implements Serializable {
 	}
 
 	@Id
-	@GenericGenerator(name="gen",strategy="increment")
-	@GeneratedValue(generator="gen")
+	@GenericGenerator(name = "gen", strategy = "increment")
+	@GeneratedValue(generator = "gen")
 	private long idGasto;
 	private String monto;
 	private String comprobante;
 	private String comentarios;
 	@ManyToOne
-	private TipoGasto tipoGasto;
-	@ManyToOne
-	private Consorcio consorcio;
-	@ManyToOne
-	private Propiedad propiedad;
+	private Concepto concepto;
+	private String fecha;
+
 	public long getIdGasto() {
 		return idGasto;
 	}
@@ -66,33 +62,25 @@ public class Gasto implements Serializable {
 		this.comentarios = param;
 	}
 
-	public TipoGasto getTipoGasto() {
-	    return tipoGasto;
+	public Concepto getConcepto() {
+		return concepto;
 	}
 
-	public void setTipoGasto(TipoGasto param) {
-	    this.tipoGasto = param;
+	public void setConcepto(Concepto param) {
+		this.concepto = param;
 	}
 
 	@JsonProperty("id")
-	public Long getId(){
+	public Long getId() {
 		return getIdGasto();
 	}
 
-	public Consorcio getConsorcio() {
-	    return consorcio;
+	public String getFecha() {
+		return fecha;
 	}
 
-	public void setConsorcio(Consorcio param) {
-	    this.consorcio = param;
-	}
-
-	public Propiedad getPropiedad() {
-	    return propiedad;
-	}
-
-	public void setPropiedad(Propiedad param) {
-	    this.propiedad = param;
+	public void setFecha(String param) {
+		this.fecha = param;
 	}
 
 }

@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.clomagno.inmobiliarias.rest.model.Gasto;
+import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
 
 @Entity
 public class Consorcio implements Serializable {
@@ -26,10 +26,10 @@ public class Consorcio implements Serializable {
 	@GeneratedValue(generator="gen")
 	private long idConsorcio;
 	@OneToMany(mappedBy = "consorcio")
-	private Collection<Propiedad> propiedad;
+	private Collection<UnidadFuncional> unidadFuncional;
 	private String nombre;
 	@OneToMany(mappedBy = "consorcio")
-	private Collection<Gasto> gasto;
+	private Collection<GastoOrdinario> gastoOrdinario;
 	public long getIdConsorcio() {
 		return idConsorcio;
 	}
@@ -38,12 +38,12 @@ public class Consorcio implements Serializable {
 		this.idConsorcio = id;
 	}
 
-	public Collection<Propiedad> getPropiedad() {
-		return propiedad;
+	public Collection<UnidadFuncional> getUnidadFuncional() {
+		return unidadFuncional;
 	}
 
-	public void setPropiedad(Collection<Propiedad> param) {
-		this.propiedad = param;
+	public void setUnidadFuncional(Collection<UnidadFuncional> param) {
+		this.unidadFuncional = param;
 	}
 
 	public String getNombre() {
@@ -59,11 +59,11 @@ public class Consorcio implements Serializable {
 		return getIdConsorcio();
 	}
 
-	public Collection<Gasto> getGasto() {
-	    return gasto;
+	public Collection<GastoOrdinario> getGastoOrdinario() {
+	    return gastoOrdinario;
 	}
 
-	public void setGasto(Collection<Gasto> param) {
-	    this.gasto = param;
+	public void setGastoOrdinario(Collection<GastoOrdinario> param) {
+	    this.gastoOrdinario = param;
 	}
 }

@@ -6,9 +6,12 @@
 		<class>com.clomagno.inmobiliarias.rest.model.Consorcio</class>
 		<class>com.clomagno.inmobiliarias.rest.model.Gasto</class>
 		<class>com.clomagno.inmobiliarias.rest.model.Persona</class>
-		<class>com.clomagno.inmobiliarias.rest.model.Propiedad</class>
+		<class>com.clomagno.inmobiliarias.rest.model.UnidadFuncional</class>
 		<class>com.clomagno.inmobiliarias.rest.model.Propietario</class>
-		<class>com.clomagno.inmobiliarias.rest.model.TipoGasto</class>
+		<class>com.clomagno.inmobiliarias.rest.model.Concepto</class>
+		<class>com.clomagno.inmobiliarias.rest.model.GastoOrdinario</class>
+		<class>com.clomagno.inmobiliarias.rest.model.GastoExtraordinario</class>
+		<class>com.clomagno.inmobiliarias.rest.model.Pago</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>
