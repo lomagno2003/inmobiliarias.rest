@@ -15,7 +15,7 @@ import com.clomagno.inmobiliarias.rest.repositories.GastoOrdinarioRepository;
 import com.clomagno.inmobiliarias.rest.repositories.PagoRepository;
 
 @Component
-public class BalanceCalculator implements IBalanceCalculator {
+public class BalanceCalculatorByMonth implements IBalanceCalculator {
 	private static final Double INTERESES = 0.15;
 	@Autowired
 	private PagoRepository pagoRepository;

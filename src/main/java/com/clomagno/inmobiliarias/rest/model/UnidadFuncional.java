@@ -35,7 +35,7 @@ public class UnidadFuncional implements Serializable {
 	private String direccion;
 	@ManyToOne
 	private Propietario propietario;
-	private Long porcentajeGastosComunes;
+	private Double porcentajeGastosComunes;
 	@OneToMany(mappedBy = "unidadFuncional")
 	private Collection<GastoExtraordinario> gastoExtraordinario;
 	@OneToMany(mappedBy = "unidadFuncional")
@@ -80,11 +80,11 @@ public class UnidadFuncional implements Serializable {
 		this.propietario = param;
 	}
 
-	public Long getPorcentajeGastosComunes() {
+	public Double getPorcentajeGastosComunes() {
 		return porcentajeGastosComunes;
 	}
 
-	public void setPorcentajeGastosComunes(Long param) {
+	public void setPorcentajeGastosComunes(Double param) {
 		this.porcentajeGastosComunes = param;
 	}
 
