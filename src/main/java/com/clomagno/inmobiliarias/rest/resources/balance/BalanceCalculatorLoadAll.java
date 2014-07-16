@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import scala.annotation.meta.getter;
+
 import com.clomagno.inmobiliarias.rest.model.GastoExtraordinario;
 import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
 import com.clomagno.inmobiliarias.rest.model.IContabilizable;
@@ -18,9 +20,11 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 	private static final Double INTERESES = 0.0;
 
 	@Override
-	public Double getBalance(UnidadFuncional unidadFuncional, Integer mes,
-			Integer año) {
-		System.out.println("Getting balance of month " + mes);
+	public Double getBalance(UnidadFuncional unidadFuncional, Date fecha) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fecha);
+		
+		System.out.println("Getting balance of month " + calendar.get(Calendar.MONTH));
 		List<IContabilizable> gastosExtraordinarios = new LinkedList<IContabilizable>(unidadFuncional.getGastoExtraordinario());
 		List<IContabilizable> gastosOrdinarios = new LinkedList<IContabilizable>(unidadFuncional.getConsorcio().getGastoOrdinario());
 		List<IContabilizable> pagos = new LinkedList<IContabilizable>(unidadFuncional.getPago());
@@ -31,15 +35,17 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 		
 		System.out.println("Init");
 		//TODO Extract all Gastos and Pagos since mes and año
-		extract(mes+1, año, gastosExtraordinarios);
-		extract(mes+1, año, gastosOrdinarios);
-		extract(mes+1, año, pagos);
+		
+		calendar.add(Calendar.MONTH, 1);
+		extract(calendar.getTime(), gastosExtraordinarios);
+		extract(calendar.getTime(), gastosOrdinarios);
+		extract(calendar.getTime(), pagos);
 		System.out.println("End");
-		return getBalanceRec(unidadFuncional,mes,año,gastosExtraordinarios,gastosOrdinarios,pagos);
+		
+		return getBalanceRec(unidadFuncional,fecha,gastosExtraordinarios,gastosOrdinarios,pagos);
 	}
 	
-	private Double getBalanceRec(UnidadFuncional unidadFuncional, Integer mes,
-			Integer año, List<IContabilizable> gastosExtraordinarios, List<IContabilizable> gastosOrdinarios, List<IContabilizable> pagos){
+	private Double getBalanceRec(UnidadFuncional unidadFuncional, Date fecha, List<IContabilizable> gastosExtraordinarios, List<IContabilizable> gastosOrdinarios, List<IContabilizable> pagos){
 		//TODO Stub method
 		if(gastosExtraordinarios.isEmpty()&&gastosOrdinarios.isEmpty()&&pagos.isEmpty()){
 			return 0.0;
@@ -47,20 +53,22 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 			//TODO Add logic to apply taxes to liabilities
 
 			//Extract the IContabilizables of the month
-			List<IContabilizable> auxGastosExtraordinarios = extract(mes, año, gastosExtraordinarios);
-			List<IContabilizable> auxGastosOrdinarios = extract(mes, año, gastosOrdinarios);
-			List<IContabilizable> auxPagos = extract(mes, año, pagos);
+			List<IContabilizable> auxGastosExtraordinarios = extract(fecha, gastosExtraordinarios);
+			List<IContabilizable> auxGastosOrdinarios = extract(fecha, gastosOrdinarios);
+			List<IContabilizable> auxPagos = extract(fecha, pagos);
 			
 			//Calculate the partial balance of the month
 			Double result = -1.0*calcularSumatoria(auxGastosExtraordinarios);
 			result -= unidadFuncional.getPorcentajeGastosComunes()*calcularSumatoria(auxGastosOrdinarios);
 			result += calcularSumatoria(auxPagos);
 			
-			System.out.println("Partial balance at month " + mes + ":" + result);
-			
 			//Continue with the recursive call
 			//TODO Contemplate the case crossing years
-			return result + getBalanceRec(unidadFuncional,mes-1,año,gastosExtraordinarios,gastosOrdinarios,pagos);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(fecha);
+			calendar.add(Calendar.MONTH, -1);
+			
+			return result + getBalanceRec(unidadFuncional,calendar.getTime(),gastosExtraordinarios,gastosOrdinarios,pagos);
 		}
 	}
 	
@@ -70,20 +78,19 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 	 * @param año
 	 * @return
 	 */
-	private LinkedList<IContabilizable> extract(Integer mes, Integer año, List<IContabilizable> list){
+	private LinkedList<IContabilizable> extract(Date fecha, List<IContabilizable> list){
 		//Get the first day of the month
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.MONTH, mes);
-		calendar.set(Calendar.YEAR, año);
+		calendar.setTime(fecha);
 		calendar.set(Calendar.DAY_OF_MONTH,
 				Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		Date firstDayOfMonth = calendar.getTime();
-		
+				
 		//Initialize a new list for the result
 		LinkedList<IContabilizable> result = new LinkedList<IContabilizable>();
 		
-		//Find all the elements which ocurr after the first day of the month
+		//Find all the elements which ocur after the first day of the month
 		for(IContabilizable elem:list){
 			if(elem.getFecha().after(firstDayOfMonth)){
 				result.add(elem);

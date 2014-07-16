@@ -1,5 +1,8 @@
 package com.clomagno.inmobiliarias.rest.resources.balance;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,9 +35,19 @@ public class BalanceRepository {
 		if(unidadFuncional!=null){
 			Integer Imes = new Integer(mes);
 			Integer Iaño = new Integer(año);
-			Double balance = balanceCalculator.getBalance(unidadFuncional, Imes, Iaño);
+
+			Double balance = balanceCalculator.getBalance(unidadFuncional, getFirstDateOfMonth(Imes, Iaño));
 			result = new Balance(balance);
 		}
 		return result;
+	}
+	
+	private Date getFirstDateOfMonth(Integer mes, Integer año) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.MONTH, mes);
+		cal.set(Calendar.YEAR, año);
+		cal.set(Calendar.DAY_OF_MONTH,
+				Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+		return cal.getTime();
 	}
 }

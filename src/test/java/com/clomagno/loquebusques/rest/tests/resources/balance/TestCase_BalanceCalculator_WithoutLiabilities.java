@@ -3,6 +3,7 @@ package com.clomagno.loquebusques.rest.tests.resources.balance;
 import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,8 +42,13 @@ public class TestCase_BalanceCalculator_WithoutLiabilities extends TestCase_Bala
 		unidadFuncional.setPago(pagos);
 		unidadFuncional.getConsorcio().setGastoOrdinario(gastosOrdinarios);
 		
+		Calendar calendar;
+		
 		//Test the balance calculator
-		Double balance = balanceCalculator.getBalance(unidadFuncional, 02, 2014);
+		calendar= Calendar.getInstance();
+		calendar.set(Calendar.YEAR, 2014);
+		calendar.set(Calendar.MONTH, 02);
+		Double balance = balanceCalculator.getBalance(unidadFuncional, calendar.getTime());
 		assertEquals("The balance is wrong",100.0, balance, 0.005);
 	}
 }

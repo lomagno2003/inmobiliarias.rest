@@ -41,8 +41,8 @@ public class BalanceCalculatorByMonth implements IBalanceCalculator {
 	}
 
 	@Override
-	public Double getBalance(UnidadFuncional unidadFuncional, Integer mes,
-			Integer año) {
+	public Double getBalance(UnidadFuncional unidadFuncional, Date fecha) {
+		/*
 		if (mes > 1) {
 			// Calculate the balance of the past month
 			Double balancePasado = getBalance(unidadFuncional, mes - 1, año);
@@ -81,7 +81,9 @@ public class BalanceCalculatorByMonth implements IBalanceCalculator {
 			return Balance;
 		} else {
 			return 0.0;
-		}
+		}*/
+		//TODO Change use of año/mes with Date
+		return null;
 	}
 
 	private Date getFirstDateOfMonth(Integer mes, Integer año) {

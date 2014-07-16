@@ -19,7 +19,7 @@ import com.clomagno.inmobiliarias.rest.model.Pago;
  * @author clomagno
  *
  */
-public class TestCase_BalanceCalculator_WithoutLiabilitiesMultipleMonths extends TestCase_BalanceCalculator_Abstract {
+public class TestCase_BalanceCalculator_WithoutLiabilitiesCrossingYear extends TestCase_BalanceCalculator_Abstract {
 	@Test
 	public void testWithoutLiabilities() throws ParseException {
 		List<GastoExtraordinario> gastosExtraordinarios = new LinkedList<GastoExtraordinario>();
@@ -27,35 +27,35 @@ public class TestCase_BalanceCalculator_WithoutLiabilitiesMultipleMonths extends
 		List<GastoOrdinario> gastosOrdinarios = new LinkedList<GastoOrdinario>();
 
 		/**------------------------------------------------------------------------------------
-		 * --------------------------------------Month 02--------------------------------------
+		 * --------------------------------------Month 11/2013----------------------------------
 		 * ------------------------------------------------------------------------------------
 		 */
 		//-------------------Generation of GastosExtraordinarios-------------------
-		gastosExtraordinarios.add(generateGastoExtraordinario(2, 2014, 50.0));
-		gastosExtraordinarios.add(generateGastoExtraordinario(2, 2014, 100.0));
-		gastosExtraordinarios.add(generateGastoExtraordinario(2, 2014, 100.0));
+		gastosExtraordinarios.add(generateGastoExtraordinario(11, 2013, 50.0));
+		gastosExtraordinarios.add(generateGastoExtraordinario(11, 2013, 100.0));
+		gastosExtraordinarios.add(generateGastoExtraordinario(11, 2013, 100.0));
 		
 		//-------------------Generation of Pagos-------------------
-		pagos.add(generatePago(2, 2014, 450.0));
+		pagos.add(generatePago(11, 2013, 450.0));
 
 		//-------------------Generation of GastosOrdinarios-------------------
-		gastosOrdinarios.add(generateGastoOrdinario(2, 2014, 100.0));
-		gastosOrdinarios.add(generateGastoOrdinario(2, 2014, 100.0));
+		gastosOrdinarios.add(generateGastoOrdinario(11, 2013, 100.0));
+		gastosOrdinarios.add(generateGastoOrdinario(11, 2013, 100.0));
 		
 		//The balance until now should be 100 positive
 		
 		/**------------------------------------------------------------------------------------
-		 * --------------------------------------Month 03--------------------------------------
+		 * --------------------------------------Month 0/2014--------------------------------
 		 * ------------------------------------------------------------------------------------
 		 */
 		//-------------------Generation of GastosExtraordinarios-------------------
-		gastosExtraordinarios.add(generateGastoExtraordinario(3, 2014, 50.0));
+		gastosExtraordinarios.add(generateGastoExtraordinario(0, 2014, 50.0));
 		
 		//-------------------Generation of Pagos-------------------
-		pagos.add(generatePago(3, 2014, 120.0));
+		pagos.add(generatePago(0, 2014, 120.0));
 
 		//-------------------Generation of GastosOrdinarios-------------------
-		gastosOrdinarios.add(generateGastoOrdinario(3, 2014, 100.0));
+		gastosOrdinarios.add(generateGastoOrdinario(0, 2014, 100.0));
 		
 		//The balance until now should be 120 positive
 		
@@ -77,17 +77,17 @@ public class TestCase_BalanceCalculator_WithoutLiabilitiesMultipleMonths extends
 		Double balance;
 		Calendar calendar;
 		
-		//Test the balance calculator at month 02(should be 100 positive)
+		//Test the balance calculator at december of 2013(should be 100 positive)
 		calendar= Calendar.getInstance();
-		calendar.set(Calendar.YEAR, 2014);
-		calendar.set(Calendar.MONTH, 2);
+		calendar.set(Calendar.YEAR, 2013);
+		calendar.set(Calendar.MONTH, 11);
 		balance = balanceCalculator.getBalance(unidadFuncional, calendar.getTime());
 		assertEquals("The balance is wrong",100.0, balance, 0.005);
 		
-		//Test the balance calculator at month 02(should be 220 positive)
+		//Test the balance calculator at january of 2014(should be 120 positive)
 		calendar= Calendar.getInstance();
 		calendar.set(Calendar.YEAR, 2014);
-		calendar.set(Calendar.MONTH, 3);
+		calendar.set(Calendar.MONTH, 0);
 		balance = balanceCalculator.getBalance(unidadFuncional, calendar.getTime());
 		assertEquals("The balance is wrong",120.0, balance, 0.005);
 	}
