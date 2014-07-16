@@ -20,7 +20,7 @@ public class BalanceRepository {
 	private UnidadFuncionalRepository unidadFuncionalRepository;
 	
 	@Autowired
-	private BalanceCalculatorByMonth balanceCalculator;
+	private IBalanceCalculator balanceCalculator;
 	
 	public void setUnidadFuncionalRepository(
 			UnidadFuncionalRepository unidadFuncionalRepository) {

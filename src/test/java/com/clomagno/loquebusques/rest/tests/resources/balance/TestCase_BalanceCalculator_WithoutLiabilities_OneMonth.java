@@ -19,7 +19,7 @@ import com.clomagno.inmobiliarias.rest.model.Pago;
  * @author clomagno
  *
  */
-public class TestCase_BalanceCalculator_WithoutLiabilities extends TestCase_BalanceCalculator_Abstract {
+public class TestCase_BalanceCalculator_WithoutLiabilities_OneMonth extends TestCase_BalanceCalculator_Abstract {
 	@Test
 	public void testWithoutLiabilities() throws ParseException {
 		//Generation of GastosExtraordinarios

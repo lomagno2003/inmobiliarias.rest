@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import scala.annotation.meta.getter;
 
 import com.clomagno.inmobiliarias.rest.model.GastoExtraordinario;
@@ -16,8 +18,9 @@ import com.clomagno.inmobiliarias.rest.model.Pago;
 import com.clomagno.inmobiliarias.rest.model.UnidadFuncional;
 import com.clomagno.inmobiliarias.rest.repositories.GastoExtraordinarioRepository;
 
+@Component
 public class BalanceCalculatorLoadAll implements IBalanceCalculator {
-	private static final Double INTERESES = 0.0;
+	public static final Double INTERESES = 0.5;
 
 	@Override
 	public Double getBalance(UnidadFuncional unidadFuncional, Date fecha) {
@@ -68,7 +71,13 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 			calendar.setTime(fecha);
 			calendar.add(Calendar.MONTH, -1);
 			
-			return result + getBalanceRec(unidadFuncional,calendar.getTime(),gastosExtraordinarios,gastosOrdinarios,pagos);
+			Double lastResult = getBalanceRec(unidadFuncional,calendar.getTime(),gastosExtraordinarios,gastosOrdinarios,pagos); 
+			
+			if(lastResult<0.0){
+				lastResult *= INTERESES; //TODO Design where the taxes should be
+			}
+			
+			return result + lastResult;
 		}
 	}
 	
