@@ -20,8 +20,6 @@ import com.clomagno.inmobiliarias.rest.repositories.GastoExtraordinarioRepositor
 
 @Component
 public class BalanceCalculatorLoadAll implements IBalanceCalculator {
-	public static final Double INTERESES = 0.5;
-
 	@Override
 	public Double getBalance(UnidadFuncional unidadFuncional, Date fecha) {
 		Calendar calendar = Calendar.getInstance();
@@ -66,15 +64,16 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 			result += calcularSumatoria(auxPagos);
 			
 			//Continue with the recursive call
-			//TODO Contemplate the case crossing years
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fecha);
 			calendar.add(Calendar.MONTH, -1);
 			
 			Double lastResult = getBalanceRec(unidadFuncional,calendar.getTime(),gastosExtraordinarios,gastosOrdinarios,pagos); 
 			
+			Double intereses = unidadFuncional.getConsorcio().getInteresActual();
+			
 			if(lastResult<0.0){
-				lastResult *= INTERESES; //TODO Design where the taxes should be
+				lastResult *= intereses; //TODO Design where the taxes should be
 			}
 			
 			return result + lastResult;

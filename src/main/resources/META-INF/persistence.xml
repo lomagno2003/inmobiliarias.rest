@@ -12,6 +12,7 @@
 		<class>com.clomagno.inmobiliarias.rest.model.GastoOrdinario</class>
 		<class>com.clomagno.inmobiliarias.rest.model.GastoExtraordinario</class>
 		<class>com.clomagno.inmobiliarias.rest.model.Pago</class>
+		<class>com.clomagno.inmobiliarias.rest.model.CambioInteres</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<properties>

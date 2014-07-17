@@ -1,7 +1,11 @@
 package com.clomagno.inmobiliarias.rest.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,9 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.neo4j.cypher.internal.compiler.v2_1.planner.logical.steps.sortSkipAndLimit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
+import com.clomagno.inmobiliarias.rest.model.CambioInteres;
 
 @Entity
 public class Consorcio implements Serializable {
@@ -30,6 +36,8 @@ public class Consorcio implements Serializable {
 	private String nombre;
 	@OneToMany(mappedBy = "consorcio")
 	private Collection<GastoOrdinario> gastoOrdinario;
+	@OneToMany
+	private List<CambioInteres> cambioInteres;
 	public long getIdConsorcio() {
 		return idConsorcio;
 	}
@@ -65,5 +73,29 @@ public class Consorcio implements Serializable {
 
 	public void setGastoOrdinario(Collection<GastoOrdinario> param) {
 	    this.gastoOrdinario = param;
+	}
+
+	public List<CambioInteres> getCambioInteres() {
+	    return cambioInteres;
+	}
+
+	public void setCambioInteres(List<CambioInteres> param) {
+	    this.cambioInteres = param;
+	}
+	
+	@JsonProperty
+	public Double getInteresActual(){
+		List<CambioInteres> cambiosIntereses = this.getCambioInteres();
+		Collections.sort(cambiosIntereses, new IUbicableEnElTiempo.DateComparator());
+		return cambiosIntereses.iterator().next().getInteres();
+	}
+	
+	@JsonProperty
+	public void setInteresActual(Double interes){
+		CambioInteres newCambioInteres = new CambioInteres();
+		newCambioInteres.setFecha(Calendar.getInstance().getTime());
+		newCambioInteres.setInteres(interes);
+		
+		this.getCambioInteres().add(newCambioInteres);
 	}
 }

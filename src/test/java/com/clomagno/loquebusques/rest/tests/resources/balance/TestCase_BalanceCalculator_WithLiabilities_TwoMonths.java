@@ -19,7 +19,7 @@ import com.clomagno.inmobiliarias.rest.model.Pago;
  * @author clomagno
  *
  */
-public class TestCase_BalanceCalculator_WithLiabilities extends TestCase_BalanceCalculator_Abstract {
+public class TestCase_BalanceCalculator_WithLiabilities_TwoMonths extends TestCase_BalanceCalculator_Abstract {
 	@Test
 	public void testWithoutLiabilities() throws ParseException {
 		List<GastoExtraordinario> gastosExtraordinarios = new LinkedList<GastoExtraordinario>();
@@ -57,6 +57,21 @@ public class TestCase_BalanceCalculator_WithLiabilities extends TestCase_Balance
 		//-------------------Generation of GastosOrdinarios-------------------
 		gastosOrdinarios.add(generateGastoOrdinario(1, 2014, 100.0));
 		
+		//The balance until now should be 0 - (0 - 50 - (-50*Taxes)) - (0 - 50 (-50*Taxes))*Taxes
+		
+		/**------------------------------------------------------------------------------------
+		 * --------------------------------------Month 2/2014--------------------------------
+		 * ------------------------------------------------------------------------------------
+		 */
+		//-------------------Generation of GastosExtraordinarios-------------------
+		gastosExtraordinarios.add(generateGastoExtraordinario(2, 2014, 50.0));
+		
+		//-------------------Generation of Pagos-------------------
+		pagos.add(generatePago(2, 2014, 100.0));
+
+		//-------------------Generation of GastosOrdinarios-------------------
+		gastosOrdinarios.add(generateGastoOrdinario(2, 2014, 100.0));
+		
 		//The balance until now should be 0 -50 (-50*Taxes) 
 		
 		/**------------------------------------------------------------------------------------
@@ -77,18 +92,27 @@ public class TestCase_BalanceCalculator_WithLiabilities extends TestCase_Balance
 		Calendar calendar;
 		Double taxes = 0.5; //TODO Solve where the taxes should be
 		
-		//Test the balance calculator at december of 2013(should be 100 positive)
+		//Test the balance calculator at december of 2013(should be -50)
 		calendar= Calendar.getInstance();
 		calendar.set(Calendar.YEAR, 2014);
 		calendar.set(Calendar.MONTH, 0);
 		balance = balanceCalculator.getBalance(unidadFuncional, calendar.getTime());
 		assertEquals("The balance is wrong",-50.0, balance, 0.005);
 		
-		//Test the balance calculator at january of 2014(should be 120 positive)
+		//Test the balance calculator at january of 2014(should be -50 plus taxes)
 		calendar= Calendar.getInstance();
 		calendar.set(Calendar.YEAR, 2014);
 		calendar.set(Calendar.MONTH, 1);
 		balance = balanceCalculator.getBalance(unidadFuncional, calendar.getTime());
 		assertEquals("The balance is wrong",-50.0 + (-50.0*taxes), balance, 0.005);
+		
+		// Test the balance calculator at january of 2014(should be -50 plus taxes applied 2 time positive)
+		calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, 2014);
+		calendar.set(Calendar.MONTH, 1);
+		balance = balanceCalculator.getBalance(unidadFuncional,
+				calendar.getTime());
+		assertEquals("The balance is wrong", -50.0 + (-50.0 * taxes), balance,
+				0.005);
 	}
 }

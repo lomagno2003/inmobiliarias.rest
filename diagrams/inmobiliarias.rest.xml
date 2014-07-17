@@ -2,7 +2,7 @@
 	<entity>
 		<entity-name>com.clomagno.inmobiliarias.rest.model.Consorcio</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>166</entity-height>
+		<entity-height>186</entity-height>
 		<entity-X-Coordinate>281</entity-X-Coordinate>
 		<entity-Y-Coordinate>51</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
@@ -25,8 +25,8 @@
 		<entity-name>com.clomagno.inmobiliarias.rest.model.Concepto</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>148</entity-height>
-		<entity-X-Coordinate>867</entity-X-Coordinate>
-		<entity-Y-Coordinate>63</entity-Y-Coordinate>
+		<entity-X-Coordinate>985</entity-X-Coordinate>
+		<entity-Y-Coordinate>64</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -36,8 +36,8 @@
 		<entity-name>com.clomagno.inmobiliarias.rest.model.GastoExtraordinario</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>70</entity-height>
-		<entity-X-Coordinate>590</entity-X-Coordinate>
-		<entity-Y-Coordinate>378</entity-Y-Coordinate>
+		<entity-X-Coordinate>708</entity-X-Coordinate>
+		<entity-Y-Coordinate>379</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -58,8 +58,8 @@
 		<entity-name>com.clomagno.inmobiliarias.rest.model.GastoOrdinario</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>70</entity-height>
-		<entity-X-Coordinate>450</entity-X-Coordinate>
-		<entity-Y-Coordinate>300</entity-Y-Coordinate>
+		<entity-X-Coordinate>490</entity-X-Coordinate>
+		<entity-Y-Coordinate>298</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -77,22 +77,33 @@
 	</entity>
 
 	<entity>
-		<entity-name>com.clomagno.inmobiliarias.rest.model.Gasto</entity-name>
+		<entity-name>com.clomagno.inmobiliarias.rest.model.Propietario</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>206</entity-height>
-		<entity-X-Coordinate>590</entity-X-Coordinate>
-		<entity-Y-Coordinate>50</entity-Y-Coordinate>
+		<entity-height>70</entity-height>
+		<entity-X-Coordinate>40</entity-X-Coordinate>
+		<entity-Y-Coordinate>378</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
 	</entity>
 
 	<entity>
-		<entity-name>com.clomagno.inmobiliarias.rest.model.Propietario</entity-name>
+		<entity-name>com.clomagno.inmobiliarias.rest.model.Gasto</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>70</entity-height>
-		<entity-X-Coordinate>40</entity-X-Coordinate>
-		<entity-Y-Coordinate>378</entity-Y-Coordinate>
+		<entity-height>206</entity-height>
+		<entity-X-Coordinate>708</entity-X-Coordinate>
+		<entity-Y-Coordinate>51</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.clomagno.inmobiliarias.rest.model.CambioInteres</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>128</entity-height>
+		<entity-X-Coordinate>490</entity-X-Coordinate>
+		<entity-Y-Coordinate>52</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
