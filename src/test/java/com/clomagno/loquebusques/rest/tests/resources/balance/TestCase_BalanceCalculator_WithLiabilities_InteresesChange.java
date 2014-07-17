@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.clomagno.inmobiliarias.rest.model.CambioInteres;
 import com.clomagno.inmobiliarias.rest.model.GastoExtraordinario;
 import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
 import com.clomagno.inmobiliarias.rest.model.Pago;
@@ -19,9 +20,9 @@ import com.clomagno.inmobiliarias.rest.model.Pago;
  * @author clomagno
  *
  */
-public class TestCase_BalanceCalculator_WithLiabilities_TwoMonths extends TestCase_BalanceCalculator_Abstract {
+public class TestCase_BalanceCalculator_WithLiabilities_InteresesChange extends TestCase_BalanceCalculator_Abstract {
 	@Test
-	public void testWithLiabilities_TwoMonths() throws ParseException {
+	public void testWithLiabilities_InteresesChange() throws ParseException {
 		List<GastoExtraordinario> gastosExtraordinarios = new LinkedList<GastoExtraordinario>();
 		List<Pago> pagos = new LinkedList<Pago>();
 		List<GastoOrdinario> gastosOrdinarios = new LinkedList<GastoOrdinario>();
@@ -57,11 +58,19 @@ public class TestCase_BalanceCalculator_WithLiabilities_TwoMonths extends TestCa
 		//-------------------Generation of GastosOrdinarios-------------------
 		gastosOrdinarios.add(generateGastoOrdinario(1, 2014, 100.0));
 		
-		//The balance until now should be 0 -50 (-50*Taxes) 
+		//The balance until now should be 0 -50 (-50*Taxes)
+		
+		//The Interes is changed in this month, so them are applied on the next
+		List<CambioInteres> cambiosInteres = unidadFuncional.getConsorcio().getCambioInteres();
+		CambioInteres newCambioInteres = new CambioInteres();
+		newCambioInteres.setInteres(1.0);
+		newCambioInteres.setFecha(getDate(1,2014));
+		cambiosInteres.add(newCambioInteres);
+		
 		/**------------------------------------------------------------------------------------
 		 * --------------------------------------Month 2/2014--------------------------------
 		 * ------------------------------------------------------------------------------------
-		 */
+		 */		
 		//-------------------Generation of GastosExtraordinarios-------------------
 		gastosExtraordinarios.add(generateGastoExtraordinario(2, 2014, 100.0));
 		
@@ -88,7 +97,8 @@ public class TestCase_BalanceCalculator_WithLiabilities_TwoMonths extends TestCa
 		 */
 		Double balance;
 		Calendar calendar;
-		Double taxes = 0.5; //TODO Solve where the taxes should be
+		Double taxes1 = 0.5; //TODO Solve where the taxes should be
+		Double taxes2 = 1.0; //TODO Solve where the taxes should be
 		
 		//Test the balance calculator at december of 2013(should be -50)
 		calendar= Calendar.getInstance();
@@ -102,7 +112,7 @@ public class TestCase_BalanceCalculator_WithLiabilities_TwoMonths extends TestCa
 		calendar.set(Calendar.YEAR, 2014);
 		calendar.set(Calendar.MONTH, 1);
 		balance = balanceCalculator.getBalance(unidadFuncional, calendar.getTime());
-		assertEquals("The balance is wrong",-50.0 + (-50.0*taxes), balance, 0.005);
+		assertEquals("The balance is wrong",-50.0 + (-50.0*taxes1), balance, 0.005);
 		
 		// Test the balance calculator at january of 2014(should be -50 plus taxes applied 2 time positive)
 		calendar = Calendar.getInstance();
@@ -110,7 +120,7 @@ public class TestCase_BalanceCalculator_WithLiabilities_TwoMonths extends TestCa
 		calendar.set(Calendar.MONTH, 2);
 		balance = balanceCalculator.getBalance(unidadFuncional,
 				calendar.getTime());
-		assertEquals("The balance is wrong", -50.0 + (-50.0 * taxes) + ((-50.0 + (-50.0 * taxes))*taxes), balance,
+		assertEquals("The balance is wrong", -50.0 + (-50.0 * taxes1) + ((-50.0 + (-50.0 * taxes1))*taxes2), balance,
 				0.005);
 	}
 }

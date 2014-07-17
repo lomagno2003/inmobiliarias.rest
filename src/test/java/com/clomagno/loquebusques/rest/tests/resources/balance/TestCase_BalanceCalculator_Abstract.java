@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.clomagno.inmobiliarias.rest.model.CambioInteres;
 import com.clomagno.inmobiliarias.rest.model.Consorcio;
 import com.clomagno.inmobiliarias.rest.model.GastoExtraordinario;
 import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
@@ -25,7 +26,7 @@ public class TestCase_BalanceCalculator_Abstract {
 	protected UnidadFuncional unidadFuncional;
 	protected IBalanceCalculator balanceCalculator;
 	
-	private Date getDate(Integer mes, Integer año){
+	protected Date getDate(Integer mes, Integer año){
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.MONTH, mes);
 		calendar.set(Calendar.YEAR, año);
@@ -41,6 +42,13 @@ public class TestCase_BalanceCalculator_Abstract {
 		
 		Consorcio consorcio = new Consorcio();
 		unidadFuncional.setConsorcio(consorcio);
+		List<CambioInteres> cambiosInteres = new LinkedList<CambioInteres>();
+		CambioInteres newCambioInteres = new CambioInteres();
+		newCambioInteres.setInteres(0.5);
+		newCambioInteres.setFecha(getDate(0,1989));
+		cambiosInteres.add(newCambioInteres);
+		
+		unidadFuncional.getConsorcio().setCambioInteres(cambiosInteres);
 		
 		balanceCalculator = new BalanceCalculatorLoadAll();
 	}

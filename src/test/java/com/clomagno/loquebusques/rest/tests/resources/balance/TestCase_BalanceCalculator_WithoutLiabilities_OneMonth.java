@@ -21,7 +21,7 @@ import com.clomagno.inmobiliarias.rest.model.Pago;
  */
 public class TestCase_BalanceCalculator_WithoutLiabilities_OneMonth extends TestCase_BalanceCalculator_Abstract {
 	@Test
-	public void testWithoutLiabilities() throws ParseException {
+	public void testWithoutLiabilities_OneMonth() throws ParseException {
 		//Generation of GastosExtraordinarios
 		List<GastoExtraordinario> gastosExtraordinarios = new LinkedList<GastoExtraordinario>();
 		gastosExtraordinarios.add(generateGastoExtraordinario(02, 2014, 50.0));
