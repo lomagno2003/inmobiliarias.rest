@@ -1,20 +1,21 @@
 package com.clomagno.inmobiliarias.rest.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.clomagno.inmobiliarias.rest.model.GastoExtraordinario;
-import java.util.Collection;
-import javax.persistence.OneToMany;
-import com.clomagno.inmobiliarias.rest.model.Pago;
 
 @Entity
 @Table(name = "UnidadFuncional")
@@ -35,11 +36,12 @@ public class UnidadFuncional implements Serializable {
 	private String direccion;
 	@ManyToOne
 	private Propietario propietario;
-	private Double porcentajeGastosComunes;
 	@OneToMany(mappedBy = "unidadFuncional")
 	private Collection<GastoExtraordinario> gastoExtraordinario;
 	@OneToMany(mappedBy = "unidadFuncional")
 	private Collection<Pago> pago;
+	@OneToMany
+	private List<CambioPorcentajeGastos> cambioPorcentajeGastos;
 	public long getIdUnidadFuncional() {
 		return idUnidadFuncional;
 	}
@@ -80,14 +82,6 @@ public class UnidadFuncional implements Serializable {
 		this.propietario = param;
 	}
 
-	public Double getPorcentajeGastosComunes() {
-		return porcentajeGastosComunes;
-	}
-
-	public void setPorcentajeGastosComunes(Double param) {
-		this.porcentajeGastosComunes = param;
-	}
-
 	@JsonProperty("id")
 	public Long getId() {
 		return getIdUnidadFuncional();
@@ -107,5 +101,29 @@ public class UnidadFuncional implements Serializable {
 
 	public void setPago(Collection<Pago> param) {
 	    this.pago = param;
+	}
+
+	public List<CambioPorcentajeGastos> getCambioPorcentajeGastos() {
+	    return cambioPorcentajeGastos;
+	}
+
+	public void setCambioPorcentajeGastos(List<CambioPorcentajeGastos> param) {
+	    this.cambioPorcentajeGastos = param;
+	}
+	
+	@JsonProperty
+	public Double getPorcentajeGastosActual(){
+		List<CambioPorcentajeGastos> cambiosIntereses = this.getCambioPorcentajeGastos();
+		Collections.sort(cambiosIntereses, new IUbicableEnElTiempo.DateComparator());
+		return cambiosIntereses.iterator().next().getPorcentajeGasto();
+	}
+	
+	@JsonProperty
+	public void setPorcentajeGastosActual(Double porcentaje){
+		CambioPorcentajeGastos newCambioPorcentajeGastos = new CambioPorcentajeGastos();
+		newCambioPorcentajeGastos.setFecha(Calendar.getInstance().getTime());
+		newCambioPorcentajeGastos.setPorcentajeGasto(porcentaje);
+		
+		this.getCambioPorcentajeGastos().add(newCambioPorcentajeGastos);
 	}
 }

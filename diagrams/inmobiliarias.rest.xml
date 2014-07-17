@@ -11,6 +11,17 @@
 	</entity>
 
 	<entity>
+		<entity-name>com.clomagno.inmobiliarias.rest.model.CambioInteres</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>128</entity-height>
+		<entity-X-Coordinate>490</entity-X-Coordinate>
+		<entity-Y-Coordinate>52</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
 		<entity-name>com.clomagno.inmobiliarias.rest.model.UnidadFuncional</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>246</entity-height>
@@ -27,6 +38,17 @@
 		<entity-height>148</entity-height>
 		<entity-X-Coordinate>985</entity-X-Coordinate>
 		<entity-Y-Coordinate>64</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>com.clomagno.inmobiliarias.rest.model.CambioPorcentajeGastos</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>128</entity-height>
+		<entity-X-Coordinate>490</entity-X-Coordinate>
+		<entity-Y-Coordinate>479</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -93,17 +115,6 @@
 		<entity-height>206</entity-height>
 		<entity-X-Coordinate>708</entity-X-Coordinate>
 		<entity-Y-Coordinate>51</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>com.clomagno.inmobiliarias.rest.model.CambioInteres</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>128</entity-height>
-		<entity-X-Coordinate>490</entity-X-Coordinate>
-		<entity-Y-Coordinate>52</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>

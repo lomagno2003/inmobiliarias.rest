@@ -1,19 +1,15 @@
 package com.clomagno.loquebusques.rest.tests.resources.balance;
 
-import static org.junit.Assert.*;
-
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import com.clomagno.inmobiliarias.rest.model.CambioInteres;
+import com.clomagno.inmobiliarias.rest.model.CambioPorcentajeGastos;
 import com.clomagno.inmobiliarias.rest.model.Consorcio;
 import com.clomagno.inmobiliarias.rest.model.GastoExtraordinario;
 import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
@@ -38,7 +34,13 @@ public class TestCase_BalanceCalculator_Abstract {
 	@Before
 	public void setUp(){
 		unidadFuncional = new UnidadFuncional();
-		unidadFuncional.setPorcentajeGastosComunes(0.5);
+		List<CambioPorcentajeGastos> cambiosPorcentajeGastos = new LinkedList<CambioPorcentajeGastos>();
+		CambioPorcentajeGastos newCambioPorcentaje = new CambioPorcentajeGastos();
+		newCambioPorcentaje.setPorcentajeGasto(0.5);
+		newCambioPorcentaje.setFecha(getDate(0,1989));
+		cambiosPorcentajeGastos.add(newCambioPorcentaje);
+		
+		unidadFuncional.setCambioPorcentajeGastos(cambiosPorcentajeGastos);
 		
 		Consorcio consorcio = new Consorcio();
 		unidadFuncional.setConsorcio(consorcio);

@@ -88,7 +88,7 @@ public class TestCase_BalanceCalculator_WithLiabilities_TwoMonths extends TestCa
 		 */
 		Double balance;
 		Calendar calendar;
-		Double taxes = 0.5; //TODO Solve where the taxes should be
+		Double taxes = 0.5;
 		
 		//Test the balance calculator at december of 2013(should be -50)
 		calendar= Calendar.getInstance();

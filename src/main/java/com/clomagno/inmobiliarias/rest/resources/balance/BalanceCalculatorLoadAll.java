@@ -9,16 +9,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import scala.annotation.meta.getter;
-
 import com.clomagno.inmobiliarias.rest.model.CambioInteres;
-import com.clomagno.inmobiliarias.rest.model.GastoExtraordinario;
-import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
+import com.clomagno.inmobiliarias.rest.model.CambioPorcentajeGastos;
 import com.clomagno.inmobiliarias.rest.model.IContabilizable;
 import com.clomagno.inmobiliarias.rest.model.IUbicableEnElTiempo;
-import com.clomagno.inmobiliarias.rest.model.Pago;
 import com.clomagno.inmobiliarias.rest.model.UnidadFuncional;
-import com.clomagno.inmobiliarias.rest.repositories.GastoExtraordinarioRepository;
 
 @Component
 public class BalanceCalculatorLoadAll implements IBalanceCalculator {
@@ -27,7 +22,6 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(fecha);
 		
-		System.out.println("Getting balance of month " + calendar.get(Calendar.MONTH));
 		List<IContabilizable> gastosExtraordinarios = new LinkedList<IContabilizable>(unidadFuncional.getGastoExtraordinario());
 		List<IContabilizable> gastosOrdinarios = new LinkedList<IContabilizable>(unidadFuncional.getConsorcio().getGastoOrdinario());
 		List<IContabilizable> pagos = new LinkedList<IContabilizable>(unidadFuncional.getPago());
@@ -36,18 +30,15 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 		Collections.sort(gastosOrdinarios, new IContabilizable.DateComparator());
 		Collections.sort(pagos, new IContabilizable.DateComparator());
 		
-		System.out.println("Init");
 		calendar.add(Calendar.MONTH, 1);
 		extract(calendar.getTime(), gastosExtraordinarios);
 		extract(calendar.getTime(), gastosOrdinarios);
 		extract(calendar.getTime(), pagos);
-		System.out.println("End");
 		
 		return getBalanceRec(unidadFuncional,fecha,gastosExtraordinarios,gastosOrdinarios,pagos);
 	}
 	
 	private Double getBalanceRec(UnidadFuncional unidadFuncional, Date fecha, List<IContabilizable> gastosExtraordinarios, List<IContabilizable> gastosOrdinarios, List<IContabilizable> pagos){
-		//TODO Stub method
 		if(gastosExtraordinarios.isEmpty()&&gastosOrdinarios.isEmpty()&&pagos.isEmpty()){
 			return 0.0;
 		} else {
@@ -56,9 +47,16 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 			List<IContabilizable> auxGastosOrdinarios = extract(fecha, gastosOrdinarios);
 			List<IContabilizable> auxPagos = extract(fecha, pagos);
 			
+			//Get the corresponding PorcentajeDeGastos
+			List<IUbicableEnElTiempo> cambiosPorcentajeGastosComunes = new LinkedList<IUbicableEnElTiempo>(unidadFuncional.getCambioPorcentajeGastos());
+			uExtract(fecha, cambiosPorcentajeGastosComunes);
+			Collections.sort(cambiosPorcentajeGastosComunes,new IUbicableEnElTiempo.DateComparator());
+			
+			Double porcentajeGastosComunes = ((CambioPorcentajeGastos)cambiosPorcentajeGastosComunes.iterator().next()).getPorcentajeGasto();
+			
 			//Calculate the partial balance of the month
 			Double result = -1.0*calcularSumatoria(auxGastosExtraordinarios);
-			result -= unidadFuncional.getPorcentajeGastosComunes()*calcularSumatoria(auxGastosOrdinarios);
+			result -= porcentajeGastosComunes*calcularSumatoria(auxGastosOrdinarios);
 			result += calcularSumatoria(auxPagos);
 			
 			//Continue with the recursive call
@@ -76,11 +74,8 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 				Collections.sort(cambiosIntereses,new IUbicableEnElTiempo.DateComparator());
 				
 				Double intereses = ((CambioInteres)cambiosIntereses.iterator().next()).getInteres();
-				System.out.println("With " + cambiosIntereses.size() + " to choose, the selected Interes is " + intereses);
-				for(IUbicableEnElTiempo u:cambiosIntereses){
-					System.out.println("The date is: " + u.getFecha() + " and the interes is: " + ((CambioInteres)u).getInteres());
-				}
-				lastBalance *= (1+intereses); //TODO Design where the taxes should be
+
+				lastBalance *= (1+intereses);
 			}
 			
 			return result + lastBalance;
@@ -114,7 +109,6 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 		
 		//Remove the elements found from the list
 		list.removeAll(result);
-		System.out.println(result.size()+" were extracted.");
 
 		return result;
 	}
@@ -146,7 +140,6 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 		
 		//Remove the elements found from the list
 		list.removeAll(result);
-		System.out.println(result.size()+" were extracted.");
 
 		return result;
 	}
