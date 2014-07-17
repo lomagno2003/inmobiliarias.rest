@@ -82,34 +82,59 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 		}
 	}
 	
+//	/**
+//	 * Extract all Contabilizable from the list since the mes and año and remove them from the list
+//	 * @param mes
+//	 * @param año
+//	 * @return
+//	 */
+//	private LinkedList<IContabilizable> extract(Date fecha, List<IContabilizable> list){
+//		//Get the first day of the month
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.setTime(fecha);
+//		calendar.set(Calendar.DAY_OF_MONTH,
+//				Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
+//		calendar.set(Calendar.HOUR_OF_DAY, 0);
+//		Date firstDayOfMonth = calendar.getTime();
+//
+//		//Initialize a new list for the result
+//		LinkedList<IContabilizable> result = new LinkedList<IContabilizable>();
+//		
+//		//Find all the elements which ocur after the first day of the month
+//		for(IContabilizable elem:list){
+//			if(elem.getFecha().after(firstDayOfMonth)){
+//				result.add(elem);
+//			}
+//		}
+//		
+//		//Remove the elements found from the list
+//		list.removeAll(result);
+//
+//		return result;
+//	}
+	
 	/**
-	 * Extract all Contabilizable from the list since the mes and año and remove them from the list
-	 * @param mes
-	 * @param año
+	 * This method facilitates all the castings to extract Contabilizables using the IUbicableEnElTiempo logic
+	 * @param fecha
+	 * @param list
 	 * @return
 	 */
-	private LinkedList<IContabilizable> extract(Date fecha, List<IContabilizable> list){
-		//Get the first day of the month
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(fecha);
-		calendar.set(Calendar.DAY_OF_MONTH,
-				Calendar.getInstance().getActualMinimum(Calendar.DAY_OF_MONTH));
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		Date firstDayOfMonth = calendar.getTime();
-
-		//Initialize a new list for the result
-		LinkedList<IContabilizable> result = new LinkedList<IContabilizable>();
+	private List<IContabilizable> extract(Date fecha, List<IContabilizable> list){
+		List<IUbicableEnElTiempo> aux = new LinkedList<IUbicableEnElTiempo>(list);
 		
-		//Find all the elements which ocur after the first day of the month
-		for(IContabilizable elem:list){
-			if(elem.getFecha().after(firstDayOfMonth)){
-				result.add(elem);
-			}
+		List<IUbicableEnElTiempo> extractedElements = uExtract(fecha, aux);
+		
+		List<IContabilizable> result = new LinkedList<IContabilizable>();
+		
+		for(IUbicableEnElTiempo elem:extractedElements){
+			result.add(((IContabilizable)elem));
 		}
 		
-		//Remove the elements found from the list
-		list.removeAll(result);
-
+		list.clear();
+		for(IUbicableEnElTiempo elem:aux){
+			list.add(((IContabilizable)elem));
+		}
+		
 		return result;
 	}
 	
@@ -119,7 +144,7 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 	 * @param año
 	 * @return
 	 */
-	private LinkedList<IUbicableEnElTiempo> uExtract(Date fecha, List<IUbicableEnElTiempo> list){
+	private List<IUbicableEnElTiempo> uExtract(Date fecha, List<IUbicableEnElTiempo> list){
 		//Get the first day of the month
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(fecha);
