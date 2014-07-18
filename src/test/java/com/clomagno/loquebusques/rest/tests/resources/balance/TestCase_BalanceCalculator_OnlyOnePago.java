@@ -9,7 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.clomagno.inmobiliarias.rest.model.CambioInteres;
 import com.clomagno.inmobiliarias.rest.model.GastoExtraordinario;
 import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
 import com.clomagno.inmobiliarias.rest.model.Pago;
