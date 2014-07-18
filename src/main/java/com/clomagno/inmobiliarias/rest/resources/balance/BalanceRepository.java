@@ -3,6 +3,8 @@ package com.clomagno.inmobiliarias.rest.resources.balance;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,6 @@ import com.clomagno.inmobiliarias.rest.model.UnidadFuncional;
 import com.clomagno.inmobiliarias.rest.repositories.UnidadFuncionalRepository;
 
 @Controller
-@RequestMapping("/balance/**")
 public class BalanceRepository {
 	@Autowired
 	private UnidadFuncionalRepository unidadFuncionalRepository;
@@ -27,7 +28,8 @@ public class BalanceRepository {
 		this.unidadFuncionalRepository = unidadFuncionalRepository;
 	}
 
-	@RequestMapping("/{idUnidadFuncional}/{año}/{mes}")
+	@Transactional
+	@RequestMapping("/unidadFuncional/{idUnidadFuncional}/balance/{año}/{mes}")
 	public @ResponseBody Balance getBalance(@PathVariable String idUnidadFuncional, @PathVariable String año, @PathVariable String mes, Model model) {
 		Balance result = null;
 		UnidadFuncional unidadFuncional = unidadFuncionalRepository.findOne(new Long(idUnidadFuncional));

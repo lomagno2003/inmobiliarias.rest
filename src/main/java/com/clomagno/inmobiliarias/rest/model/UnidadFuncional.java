@@ -4,44 +4,62 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.clomagno.inmobiliarias.rest.resources.balance.BalanceCalculatorLoadAll;
+import com.clomagno.inmobiliarias.rest.resources.balance.IBalanceCalculator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "UnidadFuncional")
 public class UnidadFuncional implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	public UnidadFuncional() {
+		this.cambioPorcentajeGastos = new LinkedList<CambioPorcentajeGastos>();
 	}
 
 	@Id
 	@GenericGenerator(name = "gen", strategy = "increment")
 	@GeneratedValue(generator = "gen")
 	private long idUnidadFuncional;
+	
 	@ManyToOne
+	@Column(nullable=false)
 	private Consorcio consorcio;
+
+	@Column(nullable=false)
 	private String nombre;
+	
 	private String direccion;
+	
 	@ManyToOne
 	private Propietario propietario;
+	
 	@OneToMany(mappedBy = "unidadFuncional")
 	private Collection<GastoExtraordinario> gastoExtraordinario;
+	
 	@OneToMany(mappedBy = "unidadFuncional")
 	private Collection<Pago> pago;
-	@OneToMany
+	
+	@OneToMany(cascade={CascadeType.ALL})
 	private List<CambioPorcentajeGastos> cambioPorcentajeGastos;
+		
 	public long getIdUnidadFuncional() {
 		return idUnidadFuncional;
 	}
@@ -82,11 +100,6 @@ public class UnidadFuncional implements Serializable {
 		this.propietario = param;
 	}
 
-	@JsonProperty("id")
-	public Long getId() {
-		return getIdUnidadFuncional();
-	}
-
 	public Collection<GastoExtraordinario> getGastoExtraordinario() {
 	    return gastoExtraordinario;
 	}
@@ -111,19 +124,35 @@ public class UnidadFuncional implements Serializable {
 	    this.cambioPorcentajeGastos = param;
 	}
 	
-	@JsonProperty
-	public Double getPorcentajeGastosActual(){
-		List<CambioPorcentajeGastos> cambiosIntereses = this.getCambioPorcentajeGastos();
-		Collections.sort(cambiosIntereses, new IUbicableEnElTiempo.DateComparator());
-		return cambiosIntereses.iterator().next().getPorcentajeGasto();
+	/******************************************************************
+	 ****************************NON-POJO******************************
+	 ******************************************************************/
+	
+	public Long getId() {
+		return getIdUnidadFuncional();
 	}
 	
-	@JsonProperty
-	public void setPorcentajeGastosActual(Double porcentaje){
+	public Double getPorcentajeGastosActual(){
+		List<CambioPorcentajeGastos> cambiosIntereses = this.getCambioPorcentajeGastos();
+		if(cambiosIntereses.isEmpty()){
+			return null;
+		} else {
+			Collections.sort(cambiosIntereses, new IUbicableEnElTiempo.DateComparator());
+			return cambiosIntereses.iterator().next().getPorcentajeGasto();
+		}
+	}
+	
+	public Double getBalance(){
+		Double balance = new BalanceCalculatorLoadAll().getBalance(this, Calendar.getInstance().getTime());
+		return balance;
+	}
+	
+	@JsonIgnore
+	public void setPorcentajeGastosActual(Double porcentajeGastosActual){
 		CambioPorcentajeGastos newCambioPorcentajeGastos = new CambioPorcentajeGastos();
 		newCambioPorcentajeGastos.setFecha(Calendar.getInstance().getTime());
-		newCambioPorcentajeGastos.setPorcentajeGasto(porcentaje);
-		
+		newCambioPorcentajeGastos.setPorcentajeGasto(porcentajeGastosActual);
+				
 		this.getCambioPorcentajeGastos().add(newCambioPorcentajeGastos);
 	}
 }

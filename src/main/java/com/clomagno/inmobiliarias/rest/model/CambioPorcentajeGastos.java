@@ -3,6 +3,7 @@ package com.clomagno.inmobiliarias.rest.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -25,7 +26,11 @@ public class CambioPorcentajeGastos implements Serializable,
 	@GenericGenerator(name = "gen", strategy = "increment")
 	@GeneratedValue(generator = "gen")
 	private long idCambioPorcentajeGastos;
+	
+	@Column(nullable=false)
 	private Double porcentajeGasto;
+	
+	@Column(nullable=false)
 	private Date fecha;
 
 	public long getIdCambioPorcentajeGastos() {

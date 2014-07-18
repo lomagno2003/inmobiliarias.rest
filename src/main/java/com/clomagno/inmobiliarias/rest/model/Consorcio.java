@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,7 +14,7 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.clomagno.inmobiliarias.rest.model.GastoOrdinario;
 import com.clomagno.inmobiliarias.rest.model.CambioInteres;
 
@@ -29,13 +30,18 @@ public class Consorcio implements Serializable {
 	@GenericGenerator(name="gen",strategy="increment")
 	@GeneratedValue(generator="gen")
 	private long idConsorcio;
+	
 	@OneToMany(mappedBy = "consorcio")
 	private Collection<UnidadFuncional> unidadFuncional;
+	
 	private String nombre;
+	
 	@OneToMany(mappedBy = "consorcio")
 	private Collection<GastoOrdinario> gastoOrdinario;
-	@OneToMany
+	
+	@OneToMany(cascade = {CascadeType.ALL})
 	private List<CambioInteres> cambioInteres;
+	
 	public long getIdConsorcio() {
 		return idConsorcio;
 	}
@@ -60,11 +66,6 @@ public class Consorcio implements Serializable {
 		this.nombre = param;
 	}
 
-	@JsonProperty("id")
-	public Long getId(){
-		return getIdConsorcio();
-	}
-
 	public Collection<GastoOrdinario> getGastoOrdinario() {
 	    return gastoOrdinario;
 	}
@@ -81,14 +82,21 @@ public class Consorcio implements Serializable {
 	    this.cambioInteres = param;
 	}
 	
-	@JsonProperty
+	/******************************************************************
+	 ****************************NON-POJO******************************
+	 ******************************************************************/
+
+	public Long getId(){
+		return getIdConsorcio();
+	}
+	
 	public Double getInteresActual(){
 		List<CambioInteres> cambiosIntereses = this.getCambioInteres();
 		Collections.sort(cambiosIntereses, new IUbicableEnElTiempo.DateComparator());
 		return cambiosIntereses.iterator().next().getInteres();
 	}
 	
-	@JsonProperty
+	@JsonIgnore
 	public void setInteresActual(Double interes){
 		CambioInteres newCambioInteres = new CambioInteres();
 		newCambioInteres.setFecha(Calendar.getInstance().getTime());
