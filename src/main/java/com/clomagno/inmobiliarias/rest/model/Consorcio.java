@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -34,6 +35,7 @@ public class Consorcio implements Serializable {
 	@OneToMany(mappedBy = "consorcio")
 	private Collection<UnidadFuncional> unidadFuncional;
 	
+	@Column(nullable=false)
 	private String nombre;
 	
 	@OneToMany(mappedBy = "consorcio")

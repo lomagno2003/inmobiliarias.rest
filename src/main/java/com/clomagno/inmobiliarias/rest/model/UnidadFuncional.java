@@ -15,14 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 
 import com.clomagno.inmobiliarias.rest.resources.balance.BalanceCalculatorLoadAll;
-import com.clomagno.inmobiliarias.rest.resources.balance.IBalanceCalculator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -39,8 +35,7 @@ public class UnidadFuncional implements Serializable {
 	@GeneratedValue(generator = "gen")
 	private long idUnidadFuncional;
 	
-	@ManyToOne
-	@Column(nullable=false)
+	@ManyToOne(optional=false)
 	private Consorcio consorcio;
 
 	@Column(nullable=false)

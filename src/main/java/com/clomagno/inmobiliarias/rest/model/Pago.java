@@ -3,6 +3,7 @@ package com.clomagno.inmobiliarias.rest.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,11 +25,18 @@ public class Pago implements Serializable, IContabilizable {
 	@GenericGenerator(name = "gen", strategy = "increment")
 	@GeneratedValue(generator = "gen")
 	private long idPago;
+	
+	@Column(nullable=false)
 	private Double monto;
+	
 	private String comentario;
-	@ManyToOne
+	
+	@ManyToOne(optional=false)
 	private UnidadFuncional unidadFuncional;
+	
 	private Boolean depositoBancario;
+	
+	@Column(nullable=false)
 	private Date fecha;
 
 	public long getIdPago() {

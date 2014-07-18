@@ -8,10 +8,11 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class GastoOrdinario extends Gasto implements Serializable {
-
 	private static final long serialVersionUID = 1L;
-	@ManyToOne
+	
+	@ManyToOne(optional=false)
 	private Consorcio consorcio;
+	
 	public Consorcio getConsorcio() {
 	    return consorcio;
 	}

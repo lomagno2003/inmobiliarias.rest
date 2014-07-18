@@ -10,11 +10,14 @@ import javax.persistence.ManyToOne;
 public class GastoExtraordinario extends Gasto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	@ManyToOne
+	
+	@ManyToOne(optional=false)
 	private UnidadFuncional unidadFuncional;
+	
 	public UnidadFuncional getUnidadFuncional() {
 	    return unidadFuncional;
 	}
+	
 	public void setUnidadFuncional(UnidadFuncional param) {
 	    this.unidadFuncional = param;
 	}

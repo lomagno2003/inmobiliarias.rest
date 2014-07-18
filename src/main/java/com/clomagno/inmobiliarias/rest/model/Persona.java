@@ -21,19 +21,24 @@ public class Persona implements Serializable {
 	@GenericGenerator(name="gen",strategy="increment")
 	@GeneratedValue(generator="gen")
 	private long idPersona;
+	
+	@Column(nullable=false)
 	private String nombre;
+	
 	private String dni;
+	
 	private String direccion;
+	
 	private String telefonoFijo;
+	
 	private String telefonoMovil;
+	
 	private String email;
 	
-	@JsonIgnore(value=false)
 	public long getIdPersona() {
 		return idPersona;
 	}
 	
-	@JsonIgnore(value=false)
 	public void setIdPersona(long id) {
 		this.idPersona = id;
 	}
