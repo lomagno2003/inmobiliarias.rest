@@ -48,11 +48,17 @@ public class BalanceCalculatorLoadAll implements IBalanceCalculator {
 			List<IContabilizable> auxPagos = extract(fecha, pagos);
 			
 			//Get the corresponding PorcentajeDeGastos
-			List<IUbicableEnElTiempo> cambiosPorcentajeGastosComunes = new LinkedList<IUbicableEnElTiempo>(unidadFuncional.getCambioPorcentajeGastos());
-			uExtract(fecha, cambiosPorcentajeGastosComunes);
-			Collections.sort(cambiosPorcentajeGastosComunes,new IUbicableEnElTiempo.DateComparator());
-			
-			Double porcentajeGastosComunes = ((CambioPorcentajeGastos)cambiosPorcentajeGastosComunes.iterator().next()).getPorcentajeGasto();
+			Double porcentajeGastosComunes = null;
+			//If the UF havn't setted any cambioPorcentajeGastos, is assumed 0
+			if(unidadFuncional.getCambioPorcentajeGastos().isEmpty()){
+				porcentajeGastosComunes = 0.0;
+			} else {
+				List<IUbicableEnElTiempo> cambiosPorcentajeGastosComunes = new LinkedList<IUbicableEnElTiempo>(unidadFuncional.getCambioPorcentajeGastos());
+				uExtract(fecha, cambiosPorcentajeGastosComunes);
+				Collections.sort(cambiosPorcentajeGastosComunes,new IUbicableEnElTiempo.DateComparator());
+				
+				porcentajeGastosComunes = ((CambioPorcentajeGastos)cambiosPorcentajeGastosComunes.iterator().next()).getPorcentajeGasto();
+			}
 			
 			//Calculate the partial balance of the month
 			Double result = -1.0*calcularSumatoria(auxGastosExtraordinarios);

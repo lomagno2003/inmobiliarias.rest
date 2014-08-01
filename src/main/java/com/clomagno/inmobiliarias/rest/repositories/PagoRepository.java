@@ -13,5 +13,4 @@ import com.clomagno.inmobiliarias.rest.model.UnidadFuncional;
 public interface PagoRepository extends CrudRepository<Pago, Long>
 {
 	public List<Pago> findByUnidadFuncionalAndFechaBetween(UnidadFuncional unidadFuncional, Date fechaBegin, Date fechaEnd);
-
 }

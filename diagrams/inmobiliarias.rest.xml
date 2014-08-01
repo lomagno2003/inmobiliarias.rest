@@ -99,22 +99,22 @@
 	</entity>
 
 	<entity>
-		<entity-name>com.clomagno.inmobiliarias.rest.model.Gasto</entity-name>
+		<entity-name>com.clomagno.inmobiliarias.rest.model.Propietario</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>206</entity-height>
-		<entity-X-Coordinate>708</entity-X-Coordinate>
-		<entity-Y-Coordinate>51</entity-Y-Coordinate>
+		<entity-height>70</entity-height>
+		<entity-X-Coordinate>40</entity-X-Coordinate>
+		<entity-Y-Coordinate>378</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
 	</entity>
 
 	<entity>
-		<entity-name>com.clomagno.inmobiliarias.rest.model.Propietario</entity-name>
+		<entity-name>com.clomagno.inmobiliarias.rest.model.Gasto</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>70</entity-height>
-		<entity-X-Coordinate>40</entity-X-Coordinate>
-		<entity-Y-Coordinate>378</entity-Y-Coordinate>
+		<entity-height>206</entity-height>
+		<entity-X-Coordinate>708</entity-X-Coordinate>
+		<entity-Y-Coordinate>51</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
